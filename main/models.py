@@ -18,6 +18,12 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
+class FavouriteNews(models.Model):
+    favourite_news = models.ForeignKey(News, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+
+
 class ImageNews(models.Model):
     image = models.ImageField(upload_to=upload_to)
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='images')
@@ -26,7 +32,7 @@ class ImageNews(models.Model):
         return self.news.title
 
 
-FAVOURITE_PUBLICATION = (
+PUBLICATION_TYPES = (
     (1, 'Публикации NCO'),
     (2, 'Другие публикации')
 )
@@ -35,7 +41,7 @@ class Publication(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     file = models.FileField(null=True, blank=True)
-    favourite_publication = models.IntegerField(choices=FAVOURITE_PUBLICATION, default=1)
+    favourite_publication = models.IntegerField(choices=PUBLICATION_TYPES, default=1)
 
 class FavouritePublication(models.Model):
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE, null=True)
@@ -60,7 +66,4 @@ class FavouriteLaws(models.Model):
     def __str__(self):
         return self.name
 
-class FavouriteNews(models.Model):
-    news = models.ForeignKey(News, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 

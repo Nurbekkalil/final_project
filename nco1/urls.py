@@ -30,4 +30,8 @@ urlpatterns = [
     path('api/v1/publications/', views.PublicationsTypeApiView.as_view()),
     path('api/v1/favourite_publications/<int:pk>/', views.PublicationItemApiView.as_view()),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.STATIC_URL,
+                      document_root=settings.STATIC_ROOT)
